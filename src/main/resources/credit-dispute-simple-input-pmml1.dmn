@@ -1,0 +1,443 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<semantic:definitions xmlns:semantic="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="http://entando/dispute" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:included2="card_holder_risk_linear_regression.pmml" xmlns:included1="dispute_risk_linear_regression.pmml" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_98" name="creditDisputeSimpleInputPmml1" expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="http://entando/dispute">
+  <semantic:extensionElements/>
+  <semantic:import id="_9A13A8B4-34DF-4A77-B108-7A2A3B48D086" name="dispute_risk_linear_regression" namespace="dispute_risk_linear_regression" locationURI="dispute_risk_linear_regression.pmml" importType="http://www.dmg.org/PMML-4_3"/>
+  <semantic:import id="_750596CD-9220-4FC5-B92C-65C9AFA93100" name="card_holder_risk_linear_regression" namespace="card_holder_risk_linear_regression" locationURI="card_holder_risk_linear_regression.pmml" importType="http://www.dmg.org/PMML-4_3"/>
+  <semantic:businessKnowledgeModel id="_80992A61-3DF9-4CC1-A961-D10BAEB4E61E" name="Cardholder Risk Model">
+    <semantic:variable id="_8A943CFF-5319-4909-A224-45591C38A00A" name="Cardholder Risk Model"/>
+    <semantic:encapsulatedLogic id="_0F2A4655-9AAA-4A1B-A167-E2E27C74BE3C" kind="PMML">
+      <semantic:formalParameter id="_4F5E10CD-5A6C-47E8-8BFB-840C04D540EB" name="age" typeRef="Any"/>
+      <semantic:formalParameter id="_03BB53E5-D9F4-4624-A8FB-729AEF55A9F1" name="holder_index" typeRef="Any"/>
+      <semantic:formalParameter id="_C852FECE-69CA-4453-9871-E8441D830D1B" name="incidents" typeRef="Any"/>
+      <semantic:context id="_AF80AE6D-6098-43A4-9D31-6D21976C29CF">
+        <semantic:contextEntry>
+          <semantic:variable id="_0AADCE48-DF72-45A2-96CF-8B268332A0F8" name="document" typeRef="string"/>
+          <semantic:literalExpression id="_EB8473AE-C184-4D6A-BE8A-07B6CA2C6CB3">
+            <semantic:text>"card_holder_risk_linear_regression"</semantic:text>
+          </semantic:literalExpression>
+        </semantic:contextEntry>
+        <semantic:contextEntry>
+          <semantic:variable id="_FCF99BEF-1337-42BD-8DC6-26D15813918C" name="model" typeRef="string"/>
+          <semantic:literalExpression id="_C12FBD99-8C58-45FC-9980-BD0EF340D015">
+            <semantic:text>"LinearRegression"</semantic:text>
+          </semantic:literalExpression>
+        </semantic:contextEntry>
+      </semantic:context>
+    </semantic:encapsulatedLogic>
+  </semantic:businessKnowledgeModel>
+  <semantic:inputData id="_ade23b6d-2106-4c06-9244-00cb4266fc15" name="Cardholder Status">
+    <semantic:variable id="_e3fa0d4e-f768-4f81-b0e0-9cf1fef9a5e8" name="Cardholder Status" typeRef="string"/>
+  </semantic:inputData>
+  <semantic:decision id="_c4f764e7-52d0-489e-a1df-fe264a8615bf" name="Cardholder Risk Rating">
+    <semantic:variable id="_f8c4ea77-5b4d-4a18-a32a-fda883287cde" name="Cardholder Risk Rating" typeRef="number"/>
+    <semantic:informationRequirement id="_825EE510-24DF-420E-A302-24D91DBC75B2">
+      <semantic:requiredInput href="#_9187a8d0-d828-4f1c-9f97-fdebc80a6314"/>
+    </semantic:informationRequirement>
+    <semantic:informationRequirement id="_12D16255-12B1-4725-AFAB-431CBE35AFE7">
+      <semantic:requiredInput href="#_a7124339-51f2-439d-b942-d47d234d9e49"/>
+    </semantic:informationRequirement>
+    <semantic:informationRequirement id="_A8A5DBC9-7FF0-4C97-8192-7525C0CDC102">
+      <semantic:requiredInput href="#_ade23b6d-2106-4c06-9244-00cb4266fc15"/>
+    </semantic:informationRequirement>
+    <semantic:knowledgeRequirement id="_1C996F26-6BDA-4372-AD1F-6D31504001BF">
+      <semantic:requiredKnowledge href="#_80992A61-3DF9-4CC1-A961-D10BAEB4E61E"/>
+    </semantic:knowledgeRequirement>
+    <semantic:context id="_6B5B312B-CD92-4316-B5E9-AD6C72E544F0">
+      <semantic:contextEntry>
+        <semantic:variable id="_DB1F7244-4F0F-4D05-AA18-113BE88868EF" name="holder_index_decoded" typeRef="Any"/>
+        <semantic:decisionTable id="_5E0DE36A-9B7A-48E5-A997-C680C4E33BBC" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+          <semantic:input id="_601E6E5C-E594-4AEC-AD06-D80F55382351">
+            <semantic:inputExpression id="_E958EF7F-E05A-4D65-B6A1-1693CEE6CB79">
+              <semantic:text>Cardholder Status</semantic:text>
+            </semantic:inputExpression>
+          </semantic:input>
+          <semantic:output id="_EAE39274-03B3-465D-8072-FE73740A1BF1"/>
+          <semantic:rule id="_10D741C1-3FE9-4AF5-B918-892D83AC32C4">
+            <semantic:inputEntry id="_9CFF808D-7C5B-4DBE-8E97-60CAE05861B2">
+              <semantic:text>"STANDARD"</semantic:text>
+            </semantic:inputEntry>
+            <semantic:outputEntry id="_7D042651-F76A-41F8-93B8-260CAC907090">
+              <semantic:text>0</semantic:text>
+            </semantic:outputEntry>
+          </semantic:rule>
+          <semantic:rule id="_BDE7725C-2E8C-4C45-A721-FE0D6FC6B879">
+            <semantic:inputEntry id="_3D684795-954F-444E-AF92-23A124CC0F43">
+              <semantic:text>"SILVER"</semantic:text>
+            </semantic:inputEntry>
+            <semantic:outputEntry id="_CB8E636F-726F-454C-BE2E-AB5799660D46">
+              <semantic:text>1</semantic:text>
+            </semantic:outputEntry>
+          </semantic:rule>
+          <semantic:rule id="_8BE8ACF6-53EE-4861-831B-500A440A05D7">
+            <semantic:inputEntry id="_115B946D-FB0C-4C87-B917-67C500BCCB02">
+              <semantic:text>"GOLD"</semantic:text>
+            </semantic:inputEntry>
+            <semantic:outputEntry id="_6073942F-1A8E-4481-A61D-F97A34105104">
+              <semantic:text>2</semantic:text>
+            </semantic:outputEntry>
+          </semantic:rule>
+          <semantic:rule id="_E0A6C433-38B7-484F-9629-06C767C49F02">
+            <semantic:inputEntry id="_16AED04E-0563-4EBB-A87B-B3C7284DE834">
+              <semantic:text>"PLATINUM"</semantic:text>
+            </semantic:inputEntry>
+            <semantic:outputEntry id="_A027D074-6FA0-4C8C-A8CC-0486A5535D13">
+              <semantic:text>3</semantic:text>
+            </semantic:outputEntry>
+          </semantic:rule>
+        </semantic:decisionTable>
+      </semantic:contextEntry>
+      <semantic:contextEntry>
+        <semantic:variable id="_E2AB86CF-B385-4FFC-B2BF-45C0AC23C6D0" name="result" typeRef="Any"/>
+        <semantic:invocation id="_85DD02B0-9E4A-4282-BD69-9F78F690964E">
+          <semantic:literalExpression id="_698FF40D-D4EC-4FC1-970F-FB671F871577">
+            <semantic:text>Cardholder Risk Model</semantic:text>
+          </semantic:literalExpression>
+          <semantic:binding>
+            <semantic:parameter id="_218E2D0E-57C1-4488-A6C2-E70ACEFCF2AA" name="age"/>
+            <semantic:literalExpression id="_B87B8E65-37F0-484B-B6E2-CE394E8A4634">
+              <semantic:text>Age</semantic:text>
+            </semantic:literalExpression>
+          </semantic:binding>
+          <semantic:binding>
+            <semantic:parameter id="_A66C8334-9B72-4711-9C74-1868288DBBEB" name="holder_index"/>
+            <semantic:literalExpression id="_C96302BA-D011-427F-B746-1320F212DBFA">
+              <semantic:text>holder_index_decoded</semantic:text>
+            </semantic:literalExpression>
+          </semantic:binding>
+          <semantic:binding>
+            <semantic:parameter id="_216AA453-FE80-42E2-BCC5-E3F71A690823" name="incidents"/>
+            <semantic:literalExpression id="_1B2425BA-E254-420C-A046-CA6F2F101E42">
+              <semantic:text>Incident Count</semantic:text>
+            </semantic:literalExpression>
+          </semantic:binding>
+        </semantic:invocation>
+      </semantic:contextEntry>
+      <semantic:contextEntry>
+        <semantic:literalExpression id="_3814C122-BE83-44E2-9E8B-A4D2C90138A1">
+          <semantic:text>result.predicted_holder_risk</semantic:text>
+        </semantic:literalExpression>
+      </semantic:contextEntry>
+    </semantic:context>
+  </semantic:decision>
+  <semantic:decision id="_2523907c-978f-4f2e-a9cb-3d349c83c335" name="Process Automatically">
+    <semantic:variable id="_300bd11a-c47b-4898-ae37-9c7c374c2a59" name="Process Automatically" typeRef="boolean"/>
+    <semantic:informationRequirement id="_0788BA30-D561-4139-BA8A-352677D3CC5D">
+      <semantic:requiredDecision href="#_c4f764e7-52d0-489e-a1df-fe264a8615bf"/>
+    </semantic:informationRequirement>
+    <semantic:informationRequirement id="_85775567-AB19-479D-AFE0-44D28636D0A1">
+      <semantic:requiredDecision href="#_7806a972-6dc1-46b3-81e7-ff48ac763f0f"/>
+    </semantic:informationRequirement>
+    <semantic:literalExpression id="_aa87a2f5-0b97-42ca-a522-676ca6bc633d">
+      <semantic:text>(Cardholder Risk Rating + Dispute Risk Rating) &lt; 5</semantic:text>
+    </semantic:literalExpression>
+  </semantic:decision>
+  <semantic:inputData id="_09116efe-d20c-4570-be32-c59ea94cd238" name="Fraud Amount">
+    <semantic:variable id="_65149275-49a3-44bd-b07f-f16bd00b998a" name="Fraud Amount" typeRef="number"/>
+  </semantic:inputData>
+  <semantic:businessKnowledgeModel id="_E5F1B2D7-3A1A-4CE9-8544-3F3473FFF517" name="Dispute Risk Model">
+    <semantic:variable id="_611644F1-3553-40D8-A192-1863491D20AD" name="Dispute Risk Model"/>
+    <semantic:encapsulatedLogic id="_B49200AF-D912-485C-96A0-459C76AA7AF1" kind="PMML">
+      <semantic:formalParameter id="_5F41691B-7069-4CF3-BE30-CF34CF384492" name="amount" typeRef="Any"/>
+      <semantic:formalParameter id="_7CE83623-2B9A-469F-8D55-C6AB4AD988E0" name="holder_index" typeRef="Any"/>
+      <semantic:context id="_9EEF8892-1C82-49F7-AEB8-61E490E52E4E">
+        <semantic:contextEntry>
+          <semantic:variable id="_6CBA4486-0595-4B71-B9F0-A8A961A2FC9B" name="document" typeRef="string"/>
+          <semantic:literalExpression id="_23FC21CE-A6C1-499E-AC60-B98FBDEF208F">
+            <semantic:text>"dispute_risk_linear_regression"</semantic:text>
+          </semantic:literalExpression>
+        </semantic:contextEntry>
+        <semantic:contextEntry>
+          <semantic:variable id="_149663C5-C3FF-4B22-85B3-0FA5E5D10093" name="model" typeRef="string"/>
+          <semantic:literalExpression id="_9B351EF7-7E38-49BA-901B-3EB01A4A89D6">
+            <semantic:text>"LinearRegression"</semantic:text>
+          </semantic:literalExpression>
+        </semantic:contextEntry>
+      </semantic:context>
+    </semantic:encapsulatedLogic>
+  </semantic:businessKnowledgeModel>
+  <semantic:inputData id="_9187a8d0-d828-4f1c-9f97-fdebc80a6314" name="Age">
+    <semantic:variable id="_63d23703-b316-4cdf-9f47-7116a64f1f62" name="Age" typeRef="number"/>
+  </semantic:inputData>
+  <semantic:inputData id="_a7124339-51f2-439d-b942-d47d234d9e49" name="Incident Count">
+    <semantic:variable id="_019ef394-cfd1-4cb9-b493-337d33889e91" name="Incident Count" typeRef="number"/>
+  </semantic:inputData>
+  <semantic:decision id="_7806a972-6dc1-46b3-81e7-ff48ac763f0f" name="Dispute Risk Rating">
+    <semantic:variable id="_06a8e8ac-f501-4a35-af90-279ef1388028" name="Dispute Risk Rating" typeRef="number"/>
+    <semantic:informationRequirement id="_D966622F-105B-486D-A416-8F122E4CA803">
+      <semantic:requiredInput href="#_09116efe-d20c-4570-be32-c59ea94cd238"/>
+    </semantic:informationRequirement>
+    <semantic:informationRequirement id="_92B53AD7-B5FA-4C07-8D7B-D2657B112D6D">
+      <semantic:requiredInput href="#_ade23b6d-2106-4c06-9244-00cb4266fc15"/>
+    </semantic:informationRequirement>
+    <semantic:knowledgeRequirement id="_938D7CD7-8A49-4CCF-B607-96E34AC21767">
+      <semantic:requiredKnowledge href="#_E5F1B2D7-3A1A-4CE9-8544-3F3473FFF517"/>
+    </semantic:knowledgeRequirement>
+    <semantic:context id="_3F36059C-7371-421D-9DA2-8F067E21D6A8">
+      <semantic:contextEntry>
+        <semantic:variable id="_A6032558-E78F-4C72-A676-8AA536584DBD" name="holder_index_decoded" typeRef="number"/>
+        <semantic:decisionTable id="_D9ED3C18-8444-4122-B05F-315E459DAAC6" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+          <semantic:input id="_A769FD8C-76B4-4A39-8FCF-BCDC4F0D1806">
+            <semantic:inputExpression id="_0BA5755F-647C-4DDA-ADD6-6480B7E4563E" typeRef="string">
+              <semantic:text>Cardholder Status</semantic:text>
+            </semantic:inputExpression>
+          </semantic:input>
+          <semantic:output id="_476DD6EB-3A2D-41FB-89C2-5D9D29E7A5A4"/>
+          <semantic:rule id="_32D050BC-94A0-4A6C-AE0B-2865A2E94A21">
+            <semantic:inputEntry id="_D6C16DC6-6424-4D3C-89EC-8087EAA224DA">
+              <semantic:text>"STANDARD"</semantic:text>
+            </semantic:inputEntry>
+            <semantic:outputEntry id="_BD7C4616-25B7-49FC-9528-8B4D180D7532">
+              <semantic:text>0</semantic:text>
+            </semantic:outputEntry>
+          </semantic:rule>
+          <semantic:rule id="_BCB25534-3D77-4477-BBBE-48A36003E419">
+            <semantic:inputEntry id="_5D6FDAA1-6B3D-41A5-B27D-FFB40056733A">
+              <semantic:text>"SILVER"</semantic:text>
+            </semantic:inputEntry>
+            <semantic:outputEntry id="_A9547523-9C84-424D-BC12-76B7D0380DB6">
+              <semantic:text>1</semantic:text>
+            </semantic:outputEntry>
+          </semantic:rule>
+          <semantic:rule id="_F8CF89BC-7201-4514-AC16-C81C8A2590B9">
+            <semantic:inputEntry id="_2DCC6139-9DCF-4B76-BFD9-34BFE9EF277E">
+              <semantic:text>"GOLD"</semantic:text>
+            </semantic:inputEntry>
+            <semantic:outputEntry id="_4862816F-B80B-48FE-85C3-FC2090F6E2FF">
+              <semantic:text>2</semantic:text>
+            </semantic:outputEntry>
+          </semantic:rule>
+          <semantic:rule id="_B946DAB3-9591-4EBE-8B51-7159FAE39850">
+            <semantic:inputEntry id="_606FE802-0402-4F60-8D42-3605C9F7C981">
+              <semantic:text>"PLATINUM"</semantic:text>
+            </semantic:inputEntry>
+            <semantic:outputEntry id="_034E6D81-1259-4ED4-A7B8-93101F0567A9">
+              <semantic:text>3</semantic:text>
+            </semantic:outputEntry>
+          </semantic:rule>
+        </semantic:decisionTable>
+      </semantic:contextEntry>
+      <semantic:contextEntry>
+        <semantic:variable id="_80222E47-DBEE-4F12-914D-392E1D948CF6" name="result" typeRef="Any"/>
+        <semantic:invocation id="_E2785295-FD52-4122-8CD4-4F45102CF197">
+          <semantic:literalExpression id="_9EBB5FC4-EAF2-413C-9E3B-ECF78570A311">
+            <semantic:text>Dispute Risk Model</semantic:text>
+          </semantic:literalExpression>
+          <semantic:binding>
+            <semantic:parameter id="_7417165B-CD7A-4FB6-B552-2A484025E50D" name="amount"/>
+            <semantic:literalExpression id="_1CF37F14-D7CB-4DBB-BB24-37C5C9774BB9">
+              <semantic:text>Fraud Amount</semantic:text>
+            </semantic:literalExpression>
+          </semantic:binding>
+          <semantic:binding>
+            <semantic:parameter id="_FCE029E0-5837-4DB3-9582-D5B0020231C5" name="holder_index"/>
+            <semantic:literalExpression id="_C59B3F13-D739-4984-ACE5-7014E73865AF">
+              <semantic:text>holder_index_decoded</semantic:text>
+            </semantic:literalExpression>
+          </semantic:binding>
+        </semantic:invocation>
+      </semantic:contextEntry>
+      <semantic:contextEntry>
+        <semantic:literalExpression id="_0DC37360-DDCC-441D-95DF-51EB0780DB34">
+          <semantic:text>result.predicted_dispute_risk</semantic:text>
+        </semantic:literalExpression>
+      </semantic:contextEntry>
+    </semantic:context>
+  </semantic:decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_AF80AE6D-6098-43A4-9D31-6D21976C29CF">
+            <kie:width>50.0</kie:width>
+            <kie:width>100.0</kie:width>
+            <kie:width>258.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_EB8473AE-C184-4D6A-BE8A-07B6CA2C6CB3"/>
+          <kie:ComponentWidths dmnElementRef="_C12FBD99-8C58-45FC-9980-BD0EF340D015"/>
+          <kie:ComponentWidths dmnElementRef="_6B5B312B-CD92-4316-B5E9-AD6C72E544F0">
+            <kie:width>50.0</kie:width>
+            <kie:width>100.0</kie:width>
+            <kie:width>449.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_5E0DE36A-9B7A-48E5-A997-C680C4E33BBC">
+            <kie:width>50.0</kie:width>
+            <kie:width>179.0</kie:width>
+            <kie:width>100.0</kie:width>
+            <kie:width>100.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_85DD02B0-9E4A-4282-BD69-9F78F690964E">
+            <kie:width>50.0</kie:width>
+            <kie:width>100.0</kie:width>
+            <kie:width>279.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_698FF40D-D4EC-4FC1-970F-FB671F871577"/>
+          <kie:ComponentWidths dmnElementRef="_B87B8E65-37F0-484B-B6E2-CE394E8A4634">
+            <kie:width>279.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_C96302BA-D011-427F-B746-1320F212DBFA">
+            <kie:width>279.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_1B2425BA-E254-420C-A046-CA6F2F101E42">
+            <kie:width>279.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_3814C122-BE83-44E2-9E8B-A4D2C90138A1">
+            <kie:width>449.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_aa87a2f5-0b97-42ca-a522-676ca6bc633d">
+            <kie:width>493.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_9EEF8892-1C82-49F7-AEB8-61E490E52E4E">
+            <kie:width>50.0</kie:width>
+            <kie:width>100.0</kie:width>
+            <kie:width>243.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_23FC21CE-A6C1-499E-AC60-B98FBDEF208F"/>
+          <kie:ComponentWidths dmnElementRef="_9B351EF7-7E38-49BA-901B-3EB01A4A89D6"/>
+          <kie:ComponentWidths dmnElementRef="_3F36059C-7371-421D-9DA2-8F067E21D6A8">
+            <kie:width>50.0</kie:width>
+            <kie:width>193.0</kie:width>
+            <kie:width>742.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_D9ED3C18-8444-4122-B05F-315E459DAAC6">
+            <kie:width>50.0</kie:width>
+            <kie:width>161.0</kie:width>
+            <kie:width>203.0</kie:width>
+            <kie:width>308.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_E2785295-FD52-4122-8CD4-4F45102CF197">
+            <kie:width>50.0</kie:width>
+            <kie:width>100.0</kie:width>
+            <kie:width>572.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_9EBB5FC4-EAF2-413C-9E3B-ECF78570A311"/>
+          <kie:ComponentWidths dmnElementRef="_1CF37F14-D7CB-4DBB-BB24-37C5C9774BB9">
+            <kie:width>572.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_C59B3F13-D739-4984-ACE5-7014E73865AF">
+            <kie:width>572.0</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_0DC37360-DDCC-441D-95DF-51EB0780DB34">
+            <kie:width>742.0</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="dmnshape-_80992A61-3DF9-4CC1-A961-D10BAEB4E61E" dmnElementRef="_80992A61-3DF9-4CC1-A961-D10BAEB4E61E" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="663" y="174.3421052631579" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_ade23b6d-2106-4c06-9244-00cb4266fc15" dmnElementRef="_ade23b6d-2106-4c06-9244-00cb4266fc15" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="270" y="300" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_c4f764e7-52d0-489e-a1df-fe264a8615bf" dmnElementRef="_c4f764e7-52d0-489e-a1df-fe264a8615bf" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="445" y="175" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_2523907c-978f-4f2e-a9cb-3d349c83c335" dmnElementRef="_2523907c-978f-4f2e-a9cb-3d349c83c335" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="357" y="50" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_09116efe-d20c-4570-be32-c59ea94cd238" dmnElementRef="_09116efe-d20c-4570-be32-c59ea94cd238" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="95" y="300" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_E5F1B2D7-3A1A-4CE9-8544-3F3473FFF517" dmnElementRef="_E5F1B2D7-3A1A-4CE9-8544-3F3473FFF517" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="79" y="174.3421052631579" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_9187a8d0-d828-4f1c-9f97-fdebc80a6314" dmnElementRef="_9187a8d0-d828-4f1c-9f97-fdebc80a6314" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="620" y="300" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_a7124339-51f2-439d-b942-d47d234d9e49" dmnElementRef="_a7124339-51f2-439d-b942-d47d234d9e49" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="445" y="300" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_7806a972-6dc1-46b3-81e7-ff48ac763f0f" dmnElementRef="_7806a972-6dc1-46b3-81e7-ff48ac763f0f" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="270" y="175" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="dmnedge-_825EE510-24DF-420E-A302-24D91DBC75B2" dmnElementRef="_825EE510-24DF-420E-A302-24D91DBC75B2">
+        <di:waypoint x="670" y="325"/>
+        <di:waypoint x="495" y="200"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_12D16255-12B1-4725-AFAB-431CBE35AFE7" dmnElementRef="_12D16255-12B1-4725-AFAB-431CBE35AFE7">
+        <di:waypoint x="495" y="325"/>
+        <di:waypoint x="495" y="200"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_A8A5DBC9-7FF0-4C97-8192-7525C0CDC102" dmnElementRef="_A8A5DBC9-7FF0-4C97-8192-7525C0CDC102">
+        <di:waypoint x="320" y="325"/>
+        <di:waypoint x="495" y="200"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_1C996F26-6BDA-4372-AD1F-6D31504001BF" dmnElementRef="_1C996F26-6BDA-4372-AD1F-6D31504001BF">
+        <di:waypoint x="663" y="199.3421052631579"/>
+        <di:waypoint x="545" y="200"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_0788BA30-D561-4139-BA8A-352677D3CC5D" dmnElementRef="_0788BA30-D561-4139-BA8A-352677D3CC5D">
+        <di:waypoint x="495" y="200"/>
+        <di:waypoint x="407" y="75"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_85775567-AB19-479D-AFE0-44D28636D0A1" dmnElementRef="_85775567-AB19-479D-AFE0-44D28636D0A1">
+        <di:waypoint x="320" y="200"/>
+        <di:waypoint x="407" y="75"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_D966622F-105B-486D-A416-8F122E4CA803" dmnElementRef="_D966622F-105B-486D-A416-8F122E4CA803">
+        <di:waypoint x="145" y="325"/>
+        <di:waypoint x="320" y="200"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_92B53AD7-B5FA-4C07-8D7B-D2657B112D6D" dmnElementRef="_92B53AD7-B5FA-4C07-8D7B-D2657B112D6D">
+        <di:waypoint x="320" y="325"/>
+        <di:waypoint x="320" y="200"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_938D7CD7-8A49-4CCF-B607-96E34AC21767" dmnElementRef="_938D7CD7-8A49-4CCF-B607-96E34AC21767">
+        <di:waypoint x="179" y="199.3421052631579"/>
+        <di:waypoint x="270" y="200"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</semantic:definitions>
