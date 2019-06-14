@@ -1,42 +1,45 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<dmn11:definitions xmlns="http://www.trisotech.com/definitions/_98" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:trisofeed="http://trisotech.com/feed" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="DMN Modeler" exporterVersion="6.1.16" id="_98" name="creditDisputeSimpleInput" namespace="http://www.entando.com/dmn/definitions/c540edb34b27457788631cf0267762b3" triso:logoChoice="Default" xmlns:dmn11="http://www.omg.org/spec/DMN/20151101/dmn.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<dmn11:definitions xmlns:dmn11="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="http://www.entando.com/dmn/definitions/c540edb34b27457788631cf0267762b3" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:trisofeed="http://trisotech.com/feed" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_98" name="creditDisputeSimpleInput" expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="http://entando/dispute">
   <dmn11:extensionElements/>
-  <dmn11:inputData id="_9187a8d0-d828-4f1c-9f97-fdebc80a6314" name="Age">
-    <dmn11:variable id="_63d23703-b316-4cdf-9f47-7116a64f1f62" name="Age" typeRef="feel:number"/>
-  </dmn11:inputData>
-  <dmn11:inputData id="_a7124339-51f2-439d-b942-d47d234d9e49" name="Incident Count">
-    <dmn11:variable id="_019ef394-cfd1-4cb9-b493-337d33889e91" name="Incident Count" typeRef="feel:number"/>
-  </dmn11:inputData>
   <dmn11:inputData id="_ade23b6d-2106-4c06-9244-00cb4266fc15" name="Cardholder Status">
-    <dmn11:variable id="_e3fa0d4e-f768-4f81-b0e0-9cf1fef9a5e8" name="Cardholder Status" typeRef="feel:string"/>
+    <dmn11:variable id="_e3fa0d4e-f768-4f81-b0e0-9cf1fef9a5e8" name="Cardholder Status" typeRef="string"/>
   </dmn11:inputData>
-  <dmn11:inputData id="_09116efe-d20c-4570-be32-c59ea94cd238" name="Fraud Amount">
-    <dmn11:variable id="_65149275-49a3-44bd-b07f-f16bd00b998a" name="Fraud Amount" typeRef="feel:number"/>
-  </dmn11:inputData>
+  <dmn11:decision id="_2523907c-978f-4f2e-a9cb-3d349c83c335" name="Process Automatically">
+    <dmn11:variable id="_300bd11a-c47b-4898-ae37-9c7c374c2a59" name="Process Automatically" typeRef="boolean"/>
+    <dmn11:informationRequirement id="_83D5EF04-2EB2-42D2-9A8A-B48E0E9050BC">
+      <dmn11:requiredDecision href="#_c4f764e7-52d0-489e-a1df-fe264a8615bf"/>
+    </dmn11:informationRequirement>
+    <dmn11:informationRequirement id="_CDA014CD-BF24-4A0A-A483-B3F9CCC32C68">
+      <dmn11:requiredDecision href="#_7806a972-6dc1-46b3-81e7-ff48ac763f0f"/>
+    </dmn11:informationRequirement>
+    <dmn11:literalExpression id="_aa87a2f5-0b97-42ca-a522-676ca6bc633d" typeRef="boolean">
+      <dmn11:text>(Cardholder Risk Rating + Dispute Risk Rating) &lt; 5</dmn11:text>
+    </dmn11:literalExpression>
+  </dmn11:decision>
   <dmn11:decision id="_c4f764e7-52d0-489e-a1df-fe264a8615bf" name="Cardholder Risk Rating">
-    <dmn11:variable id="_f8c4ea77-5b4d-4a18-a32a-fda883287cde" name="Cardholder Risk Rating" typeRef="feel:number"/>
-    <dmn11:informationRequirement>
+    <dmn11:variable id="_f8c4ea77-5b4d-4a18-a32a-fda883287cde" name="Cardholder Risk Rating" typeRef="number"/>
+    <dmn11:informationRequirement id="_6B6837B9-D736-46EA-85F8-A4DF413EDABE">
       <dmn11:requiredInput href="#_9187a8d0-d828-4f1c-9f97-fdebc80a6314"/>
     </dmn11:informationRequirement>
-    <dmn11:informationRequirement>
+    <dmn11:informationRequirement id="_BC009373-A842-43B4-9F13-7E785E7D5538">
       <dmn11:requiredInput href="#_a7124339-51f2-439d-b942-d47d234d9e49"/>
     </dmn11:informationRequirement>
-    <dmn11:informationRequirement>
+    <dmn11:informationRequirement id="_2D64F3B5-36C6-47A1-8F7B-5C0557588F12">
       <dmn11:requiredInput href="#_ade23b6d-2106-4c06-9244-00cb4266fc15"/>
     </dmn11:informationRequirement>
-    <dmn11:decisionTable aggregation="SUM" hitPolicy="COLLECT" id="_5b93b3a2-e90b-49eb-9321-d54f2127885b" outputLabel="Cardholder Risk Rating" triso:expressionId="_2a202b24-1c66-4a2f-acad-71b6a6ff00ee" typeRef="feel:number">
+    <dmn11:decisionTable id="_5b93b3a2-e90b-49eb-9321-d54f2127885b" typeRef="number" hitPolicy="COLLECT" aggregation="SUM" preferredOrientation="Rule-as-Row" outputLabel="Cardholder Risk Rating">
       <dmn11:input id="_3346bcf3-f413-4387-8682-186a131bd26b">
-        <dmn11:inputExpression typeRef="feel:number">
+        <dmn11:inputExpression id="_FB9D4A4E-239D-4D1F-A442-A14D863BC561" typeRef="number">
           <dmn11:text>Incident Count</dmn11:text>
         </dmn11:inputExpression>
       </dmn11:input>
       <dmn11:input id="_3b3ae962-ef9a-4f64-a76e-5eea44207ff3">
-        <dmn11:inputExpression typeRef="feel:string">
+        <dmn11:inputExpression id="_C9C9D461-460F-470A-990A-24BF93343751" typeRef="string">
           <dmn11:text>Cardholder Status</dmn11:text>
         </dmn11:inputExpression>
       </dmn11:input>
       <dmn11:input id="_b0228933-6857-468a-9390-0253f8d9366c">
-        <dmn11:inputExpression typeRef="feel:number">
+        <dmn11:inputExpression id="_CCE14B15-B313-49A4-8B8A-118F935F7AB1" typeRef="number">
           <dmn11:text>Age</dmn11:text>
         </dmn11:inputExpression>
       </dmn11:input>
@@ -155,22 +158,31 @@
       </dmn11:rule>
     </dmn11:decisionTable>
   </dmn11:decision>
+  <dmn11:inputData id="_09116efe-d20c-4570-be32-c59ea94cd238" name="Fraud Amount">
+    <dmn11:variable id="_65149275-49a3-44bd-b07f-f16bd00b998a" name="Fraud Amount" typeRef="number"/>
+  </dmn11:inputData>
+  <dmn11:inputData id="_a7124339-51f2-439d-b942-d47d234d9e49" name="Incident Count">
+    <dmn11:variable id="_019ef394-cfd1-4cb9-b493-337d33889e91" name="Incident Count" typeRef="number"/>
+  </dmn11:inputData>
+  <dmn11:inputData id="_9187a8d0-d828-4f1c-9f97-fdebc80a6314" name="Age">
+    <dmn11:variable id="_63d23703-b316-4cdf-9f47-7116a64f1f62" name="Age" typeRef="number"/>
+  </dmn11:inputData>
   <dmn11:decision id="_7806a972-6dc1-46b3-81e7-ff48ac763f0f" name="Dispute Risk Rating">
-    <dmn11:variable id="_06a8e8ac-f501-4a35-af90-279ef1388028" name="Dispute Risk Rating" typeRef="feel:number"/>
-    <dmn11:informationRequirement>
+    <dmn11:variable id="_06a8e8ac-f501-4a35-af90-279ef1388028" name="Dispute Risk Rating" typeRef="number"/>
+    <dmn11:informationRequirement id="_121629E4-0A37-488A-A0F1-DB6DD97157A7">
       <dmn11:requiredInput href="#_09116efe-d20c-4570-be32-c59ea94cd238"/>
     </dmn11:informationRequirement>
-    <dmn11:informationRequirement>
+    <dmn11:informationRequirement id="_57CCB9F3-CE31-426B-9716-9C734841DC3A">
       <dmn11:requiredInput href="#_ade23b6d-2106-4c06-9244-00cb4266fc15"/>
     </dmn11:informationRequirement>
-    <dmn11:decisionTable hitPolicy="UNIQUE" id="_90024631-620d-40da-aa91-c46d7d07b45b" outputLabel="Dispute Risk Rating" triso:expressionId="_0a211587-b859-47b8-85a8-2971be59fad0" typeRef="feel:number">
+    <dmn11:decisionTable id="_90024631-620d-40da-aa91-c46d7d07b45b" typeRef="number" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Dispute Risk Rating">
       <dmn11:input id="_01578336-7015-4df8-91dd-8be120f8f661">
-        <dmn11:inputExpression typeRef="feel:string">
+        <dmn11:inputExpression id="_4655074C-6F2C-4AB3-BD5D-3AE7F487E6A0" typeRef="string">
           <dmn11:text>Cardholder Status</dmn11:text>
         </dmn11:inputExpression>
       </dmn11:input>
       <dmn11:input id="_35b05a57-d0e0-4c89-be56-a36d52acf388">
-        <dmn11:inputExpression typeRef="feel:number">
+        <dmn11:inputExpression id="_93CFEB09-DFBE-4C6C-833B-236AE4D32BDE" typeRef="number">
           <dmn11:text>Fraud Amount</dmn11:text>
         </dmn11:inputExpression>
       </dmn11:input>
@@ -309,16 +321,106 @@
       </dmn11:rule>
     </dmn11:decisionTable>
   </dmn11:decision>
-  <dmn11:decision id="_2523907c-978f-4f2e-a9cb-3d349c83c335" name="Process Automatically">
-    <dmn11:variable id="_300bd11a-c47b-4898-ae37-9c7c374c2a59" name="Process Automatically" typeRef="feel:boolean"/>
-    <dmn11:informationRequirement>
-      <dmn11:requiredDecision href="#_c4f764e7-52d0-489e-a1df-fe264a8615bf"/>
-    </dmn11:informationRequirement>
-    <dmn11:informationRequirement>
-      <dmn11:requiredDecision href="#_7806a972-6dc1-46b3-81e7-ff48ac763f0f"/>
-    </dmn11:informationRequirement>
-    <dmn11:literalExpression id="_aa87a2f5-0b97-42ca-a522-676ca6bc633d" triso:expressionId="_d7d1bd26-ef3d-45a1-990d-e8d7cef95da0" typeRef="feel:boolean">
-      <dmn11:text>(Cardholder Risk Rating + Dispute Risk Rating) &lt; 5</dmn11:text>
-    </dmn11:literalExpression>
-  </dmn11:decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_aa87a2f5-0b97-42ca-a522-676ca6bc633d"/>
+          <kie:ComponentWidths dmnElementRef="_5b93b3a2-e90b-49eb-9321-d54f2127885b"/>
+          <kie:ComponentWidths dmnElementRef="_90024631-620d-40da-aa91-c46d7d07b45b"/>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="dmnshape-_ade23b6d-2106-4c06-9244-00cb4266fc15" dmnElementRef="_ade23b6d-2106-4c06-9244-00cb4266fc15" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="400" y="300" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_2523907c-978f-4f2e-a9cb-3d349c83c335" dmnElementRef="_2523907c-978f-4f2e-a9cb-3d349c83c335" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="312" y="50" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_c4f764e7-52d0-489e-a1df-fe264a8615bf" dmnElementRef="_c4f764e7-52d0-489e-a1df-fe264a8615bf" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="225" y="175" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_09116efe-d20c-4570-be32-c59ea94cd238" dmnElementRef="_09116efe-d20c-4570-be32-c59ea94cd238" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="575" y="300" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_a7124339-51f2-439d-b942-d47d234d9e49" dmnElementRef="_a7124339-51f2-439d-b942-d47d234d9e49" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="225" y="300" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_9187a8d0-d828-4f1c-9f97-fdebc80a6314" dmnElementRef="_9187a8d0-d828-4f1c-9f97-fdebc80a6314" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="50" y="300" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-_7806a972-6dc1-46b3-81e7-ff48ac763f0f" dmnElementRef="_7806a972-6dc1-46b3-81e7-ff48ac763f0f" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="400" y="175" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="dmnedge-_83D5EF04-2EB2-42D2-9A8A-B48E0E9050BC" dmnElementRef="_83D5EF04-2EB2-42D2-9A8A-B48E0E9050BC">
+        <di:waypoint x="275" y="200"/>
+        <di:waypoint x="362" y="75"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_CDA014CD-BF24-4A0A-A483-B3F9CCC32C68" dmnElementRef="_CDA014CD-BF24-4A0A-A483-B3F9CCC32C68">
+        <di:waypoint x="450" y="200"/>
+        <di:waypoint x="362" y="75"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_6B6837B9-D736-46EA-85F8-A4DF413EDABE" dmnElementRef="_6B6837B9-D736-46EA-85F8-A4DF413EDABE">
+        <di:waypoint x="100" y="325"/>
+        <di:waypoint x="275" y="200"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_BC009373-A842-43B4-9F13-7E785E7D5538" dmnElementRef="_BC009373-A842-43B4-9F13-7E785E7D5538">
+        <di:waypoint x="275" y="325"/>
+        <di:waypoint x="275" y="200"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_2D64F3B5-36C6-47A1-8F7B-5C0557588F12" dmnElementRef="_2D64F3B5-36C6-47A1-8F7B-5C0557588F12">
+        <di:waypoint x="450" y="325"/>
+        <di:waypoint x="275" y="200"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_121629E4-0A37-488A-A0F1-DB6DD97157A7" dmnElementRef="_121629E4-0A37-488A-A0F1-DB6DD97157A7">
+        <di:waypoint x="625" y="325"/>
+        <di:waypoint x="450" y="200"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-_57CCB9F3-CE31-426B-9716-9C734841DC3A" dmnElementRef="_57CCB9F3-CE31-426B-9716-9C734841DC3A">
+        <di:waypoint x="450" y="325"/>
+        <di:waypoint x="450" y="200"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
 </dmn11:definitions>
